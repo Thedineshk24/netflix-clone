@@ -37,8 +37,10 @@
     opacity: 1;
 }
 
-.row__poster,.row__posterLarge > p{
-    display: inherit;
+h4{
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
     font-size: small;
     color: #fff;
 }

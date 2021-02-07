@@ -26,6 +26,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
 				{movies.map((movie) =>
 					// check if movie info is avaliable then load it
 					movie.poster_path || movie.backdrop_path ? (
+						<React.Fragment>
 							<img
 								className={`row__poster ${isLargeRow && "row__posterLarge"}`}
 								key={movie?.id}
@@ -34,6 +35,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
 								}`}
 								alt={movie?.name}
 							/>
+						</React.Fragment>
 					) : null,
 				)}
 			</div>
