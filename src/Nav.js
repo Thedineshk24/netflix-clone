@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import { auth } from "./firebase";
 
 // css
 import "./Nav.css";
@@ -27,6 +28,7 @@ const Nav = () => {
 					alt="netflix-logo"
 				/>
 				<img
+					onClick={() => auth.signOut()}
 					className="nav__avatar"
 					src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
 					alt="netflix-avatar"
