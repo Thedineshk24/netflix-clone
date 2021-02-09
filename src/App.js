@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import "./App.css";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
-
+import ProfileScreen from "./screens/ProfileScreen";
 // react-router-dom
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch , Redirect} from "react-router-dom";
 import { auth } from "./firebase";
 
 import {useDispatch,useSelector} from "react-redux";
-import {selectUser, setEmail} from "./features/userSlice";
+import {selectUser, login, logout} from "./features/userSlice";
+import Login from "./screens/LoginScreen";
 
 function App() {
 	const dispatch = useDispatch();
@@ -17,13 +18,17 @@ function App() {
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(userAuth => {
 			if(userAuth){
-				dispatch(setEmail(userAuth.email))
+				dispatch(login({
+					uid : userAuth.uid,
+					email : userAuth.email
+				}));
 			}else{
-
+				// always write dispatch(logout()) // bcz without logout() it didnt logout directly
+				dispatch(logout());
 			}
 		})
 		return unsubscribe;
-	},[]);
+	},[dispatch]);
 	return (
 		<div className="app">
 			<Router>
@@ -33,6 +38,10 @@ function App() {
 					<Switch>
 						<Route exact path="/">
 							<HomeScreen />
+						</Route>
+
+						<Route exact path="/profile">
+							<ProfileScreen />
 						</Route>
 					</Switch>
 				)}
